@@ -1,0 +1,6 @@
+*.o
+*s-out*
+*.s
+checksum-d
+checksum-zig
+checksum-spectre
