@@ -1,5 +1,10 @@
 ## All Benchmark Results
 
+Output obtained via Hyperfine. All tests are run on:
+
+CPU: Ryzen 5 5600X @ 4.7 GHz
+RAM: 32 GB DDR5
+
 ### JSON
 
 | Command               |     Mean [ms] | Min [ms] | Max [ms] |    Relative |
