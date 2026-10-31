@@ -4,3 +4,6 @@
 checksum-d
 checksum-zig
 checksum-spectre
+calls-d
+calls-zig
+calls-spectre

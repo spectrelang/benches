@@ -1,0 +1,30 @@
+val time = use("std/time")
+
+val iterations = 10000000
+
+fn mix(a: i64, b: i64, c: i64) i64 = {
+    return (a * 31 + b * 17 - c * 13) ^ ((a + b) << 3)
+}
+
+pub fn main() void = {
+    val checksum: mut i64 = 0
+    val cur_time = time.now_ns()
+
+    for i = 0, i < iterations, i++ {
+        val a = i % 997
+        val b = i % 313
+        val c = i % 127
+
+        checksum += mix(a, b, c)
+    }
+
+    val new_time = time.now_ns()
+    val elapsed = new_time - cur_time
+
+    trust {
+        @print("Spectre: {d} ns\n", {elapsed})
+        @print("Spectre: {d} ns/op\n", {elapsed / iterations})
+        @print("Checksum: {d}\n", {checksum})
+    }
+
+}
