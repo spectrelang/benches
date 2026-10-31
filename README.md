@@ -1,4 +1,4 @@
-## All Benchmark Results
+## Benchmarks
 
 Output obtained via Hyperfine. All tests are run on:
 
