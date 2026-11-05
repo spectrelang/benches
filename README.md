@@ -91,21 +91,6 @@ Toolchains: Spectre 0.0.14 (ff4c93b), Zig 0.17.0, LDC 1.36.0, Rust 1.93.1, Clang
 | `./hashmap-rust`    | 87.6 ± 1.2 |     86.0 |     90.1 | 9.95 ± 0.45 |
 | `./hashmap-cpp`     |  8.8 ± 0.4 |      8.3 |      9.7 |        1.00 |
 
-#### Core language (arithmetic, branches, recursion)
-
-Spectre uses `-release -alt -native -unroll`; the other compilers use
-their native optimization flags (`-O3 -march=native`, `-OReleaseFast
--mcpu=native`, `-C target-cpu=native`, and equivalent). The workload combines
-a serial 64-bit hash chain, Collatz sequences, and recursive Fibonacci.
-
-| Command          |   Mean [ms] | Min [ms] | Max [ms] |    Relative |
-| :--------------- | ----------: | -------: | -------: | ----------: |
-| `./core-spectre` | 232.2 ± 0.7 |    231.6 |    234.2 | 1.01 ± 0.00 |
-| `./core-zig`     | 231.9 ± 1.0 |    230.6 |    234.3 | 1.01 ± 0.01 |
-| `./core-d`       | 230.9 ± 1.0 |    230.0 |    233.4 | 1.00 ± 0.01 |
-| `./core-rust`    | 230.2 ± 0.7 |    229.4 |    232.0 |        1.00 |
-| `./core-cpp`     | 230.7 ± 0.9 |    229.5 |    233.0 | 1.00 ± 0.00 |
-
 #### Core language
 
 Spectre uses `-release -alt -native -unroll -dynamic`; the other compilers use
