@@ -36,10 +36,6 @@ RAM: 32 GB DDR5
 CPU: Apple M2
 RAM: 16 GB
 
-Spectre is compiled with the canary `spectre-dev` build from `../spectre`, using
-the `--alt` backend with `--release`. This set also adds the Rust and C++
-variants and the new sort, hashmap, JSON parse/write/roundtrip benchmarks.
-
 #### JSON
 
 | Command               |    Mean [ms] | Min [ms] | Max [ms] |    Relative |
