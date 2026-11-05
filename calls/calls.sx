@@ -2,7 +2,7 @@ val time = use("std/time")
 
 val iterations = 10000000
 
-fn mix(a: i64, b: i64, c: i64) i64 = {
+fn mix(a: i64, b: i64, c: i64) i64 = inline {
     return (a * 31 + b * 17 - c * 13) ^ ((a + b) << 3)
 }
 

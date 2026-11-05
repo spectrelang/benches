@@ -2,18 +2,26 @@
 set -euo pipefail
 
 # Zig: v0.17.0
-# LDC2: v1.36.0
-# Spectre: v0.0.12
+# LDC2: v1.41.0
+# Rust: v1.94.0
+# Clang++: Apple clang 16
+# Spectre: canary build (see ../spectre)
 
-spectre calls.sx --release -o calls-spectre --alt
+if [[ -z "${SPECTRE:-}" ]]; then
+	if [[ -x "../../spectre/spectre-dev" ]]; then
+		SPECTRE="../../spectre/spectre-dev"
+	else
+		SPECTRE="spectre"
+	fi
+fi
+
+"$SPECTRE" calls.sx --release -o calls-spectre --alt
 zig build-exe calls.zig -OReleaseFast -femit-bin=calls-zig
 ldc2 -O3 -release -boundscheck=off calls.d -of=calls-d
+rustc -O calls.rs -o calls-rust
+clang++ -O3 -std=c++17 calls.cpp -o calls-cpp
 
-SPECTRE="./calls-spectre"
-ZIG="./calls-zig"
-D="./calls-d"
-
-for bin in "$SPECTRE" "$ZIG" "$D"; do
+for bin in calls-spectre calls-zig calls-d calls-rust calls-cpp; do
 	if [[ ! -x "$bin" ]]; then
 		echo "Missing executable: $bin" >&2
 		exit 1
@@ -26,6 +34,8 @@ hyperfine \
 	--sort command \
 	--export-json benchmark-results.json \
 	--export-markdown benchmark-results.md \
-	"$SPECTRE" \
-	"$ZIG" \
-	"$D"
+	"./calls-spectre" \
+	"./calls-zig" \
+	"./calls-d" \
+	"./calls-rust" \
+	"./calls-cpp"

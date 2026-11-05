@@ -16,16 +16,14 @@ pub fn main() void = trust {
 
     for i = 0, i < iterations, i++ {
         val idx = (i * 31) % array_size
-        val x_opt = @get(data, idx)
+        val x: i32 = @load(@ptradd(data, (idx as usize) * @sizeof(i32))) as i32
 
-        if x_opt is some x {
-            if x & 1 == 0 {
-                checksum += x * 3 + i % 97
-            } else {
-                checksum -= x * 2 - i % 53
-            }
-            checksum = checksum ^ ((checksum << 7) | (checksum >> 3))
+        if x & 1 == 0 {
+            checksum += x * 3 + i % 97
+        } else {
+            checksum -= x * 2 - i % 53
         }
+        checksum = checksum ^ ((checksum << 7) | (checksum >> 3))
     }
 
     val elapsed = time.now_ns() - start

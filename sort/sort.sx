@@ -1,0 +1,32 @@
+val algorithms = use("std/algorithms")
+val stdio      = use("std/stdio")
+val time       = use("std/time")
+
+val N = 5000000
+
+fn make_input() list[u64] = trust {
+    val xs: mut list[u64] = []
+    val seed: mut u64 = 123456789
+    for i = 0, i < N, i++ {
+        seed = seed * 6364136223846793005 + 1442695040888963407
+        @append(xs, seed & 4294967295)
+    }
+    return xs
+}
+
+pub fn main() void = trust {
+    val xs = make_input()
+
+    val start = time.now_ns()
+    val sorted = algorithms.sort[u64](xs)
+    val checksum: mut u64 = 0
+    for v in sorted {
+        checksum = checksum ^ v
+    }
+    val elapsed = time.now_ns() - start
+
+    stdio.print("Spectre: {d} ns\n", {elapsed})
+    stdio.print("Checksum: {d}\n", {checksum})
+    @listfree(xs)
+    @listfree(sorted)
+}

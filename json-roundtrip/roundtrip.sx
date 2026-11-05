@@ -1,0 +1,46 @@
+val allocators = use("std/allocators")
+val json       = use("std/json")
+val stdio      = use("std/stdio")
+val string     = use("std/string")
+val time       = use("std/time")
+
+val N = 300000
+val ITERATIONS = 20
+
+fn build_input() ref u8 = trust {
+    val sb = string.StringBuilder.new()
+    string.StringBuilder.append_cstr(sb, "[")
+    for i = 0, i < N, i++ {
+        if i > 0 {
+            string.StringBuilder.append_char(sb, 44 as u8)
+        }
+        val num: mut ref u8 = @fmtalloc("{d}", {i})
+        string.StringBuilder.append_cstr(sb, num)
+        @free(num)
+    }
+    string.StringBuilder.append_cstr(sb, "]")
+    val out = string.StringBuilder.build(sb)
+    return string.cstr(out)
+}
+
+pub fn main() void = trust {
+    val input = build_input()
+    val arena: mut allocators.Arena = allocators.Arena.new(16777216 as usize)?
+
+    val start = time.now_ns()
+    val checksum: mut i64 = 0
+    for k = 0, k < ITERATIONS, k++ {
+        val parsed = json.parse(input)
+        if parsed is some doc {
+            allocators.Arena.reset(arena)
+            val out = json.doc_to_string[allocators.Arena](arena, doc)
+            checksum += string.len_raw(out)
+            json.doc_free(doc)
+        }
+    }
+    val elapsed = time.now_ns() - start
+
+    stdio.print("Spectre: {d} ns\n", {elapsed})
+    stdio.print("Checksum: {d}\n", {checksum})
+    allocators.Arena.free(arena)
+}

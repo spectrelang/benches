@@ -1,11 +1,13 @@
 ## Benchmarks
 
-Output obtained via Hyperfine. All tests are run on:
+Output obtained via Hyperfine.
+
+### Ryzen 5 5600X
 
 CPU: Ryzen 5 5600X @ 4.7 GHz
 RAM: 32 GB DDR5
 
-### JSON
+#### JSON
 
 | Command               |     Mean [ms] | Min [ms] | Max [ms] |    Relative |
 | :-------------------- | ------------: | -------: | -------: | ----------: |
@@ -13,7 +15,7 @@ RAM: 32 GB DDR5
 | `./benchmark-zig`     | 1055.6 ± 17.0 |   1034.1 |   1089.4 | 4.29 ± 0.10 |
 | `./benchmark-d`       | 2383.6 ± 24.7 |   2357.5 |   2460.6 | 9.68 ± 0.18 |
 
-### Checksum
+#### Checksum
 
 | Command              |  Mean [ms] | Min [ms] | Max [ms] |    Relative |
 | :------------------- | ---------: | -------: | -------: | ----------: |
@@ -21,10 +23,99 @@ RAM: 32 GB DDR5
 | `./checksum-zig`     | 16.3 ± 0.4 |     15.8 |     17.3 | 1.00 ± 0.05 |
 | `./checksum-d`       | 17.0 ± 0.2 |     16.6 |     17.5 | 1.05 ± 0.04 |
 
-### Calls
+#### Calls
 
 | Command           |  Mean [ms] | Min [ms] | Max [ms] |    Relative |
 | :---------------- | ---------: | -------: | -------: | ----------: |
 | `./calls-spectre` | 22.1 ± 0.4 |     21.6 |     23.2 |        1.00 |
 | `./calls-zig`     | 31.8 ± 0.6 |     31.0 |     33.3 | 1.44 ± 0.04 |
 | `./calls-d`       | 25.1 ± 0.4 |     24.6 |     26.3 | 1.13 ± 0.03 |
+
+### Apple M2 (macOS arm64)
+
+CPU: Apple M2
+RAM: 16 GB
+
+Spectre is compiled with the canary `spectre-dev` build from `../spectre`, using
+the `--alt` backend with `--release`. This set also adds the Rust and C++
+variants and the new sort, hashmap, JSON parse/write/roundtrip benchmarks.
+
+#### JSON
+
+| Command               |    Mean [ms] | Min [ms] | Max [ms] |    Relative |
+| :-------------------- | -----------: | -------: | -------: | ----------: |
+| `./benchmark-spectre` |  303.3 ± 6.7 |    294.4 |    318.4 |        1.00 |
+| `./benchmark-zig`     |  712.1 ± 2.5 |    709.3 |    716.9 | 2.35 ± 0.05 |
+| `./benchmark-d`       | 1710.4 ± 4.5 |   1700.4 |   1716.0 | 5.64 ± 0.13 |
+| `./benchmark-rust`    |  472.5 ± 2.5 |    469.1 |    478.9 | 1.56 ± 0.04 |
+| `./benchmark-cpp`     | 1341.5 ± 6.2 |   1333.4 |   1355.3 | 4.42 ± 0.10 |
+
+#### JSON (large parse)
+
+| Command                |   Mean [ms] | Min [ms] | Max [ms] |     Relative |
+| :--------------------- | ----------: | -------: | -------: | -----------: |
+| `./json-parse-spectre` |  50.8 ± 0.4 |     49.8 |     51.5 |         1.00 |
+| `./json-parse-zig`     | 316.8 ± 1.9 |    312.8 |    319.9 |  6.23 ± 0.06 |
+| `./json-parse-d`       | 575.2 ± 1.1 |    573.5 |    577.8 | 11.32 ± 0.10 |
+| `./json-parse-rust`    |  88.4 ± 0.4 |     87.2 |     88.9 |  1.74 ± 0.02 |
+| `./json-parse-cpp`     | 327.3 ± 1.3 |    324.4 |    329.1 |  6.44 ± 0.06 |
+
+#### JSON (large write)
+
+| Command                |   Mean [ms] | Min [ms] | Max [ms] |    Relative |
+| :--------------------- | ----------: | -------: | -------: | ----------: |
+| `./json-write-spectre` |  44.6 ± 0.6 |     43.8 |     45.6 |        1.00 |
+| `./json-write-zig`     |  97.2 ± 0.7 |     96.1 |     98.7 | 2.18 ± 0.03 |
+| `./json-write-d`       | 283.9 ± 3.5 |    279.2 |    292.6 | 6.36 ± 0.11 |
+| `./json-write-rust`    |  64.4 ± 0.5 |     63.4 |     65.1 | 1.44 ± 0.02 |
+| `./json-write-cpp`     |  97.8 ± 0.4 |     96.8 |     98.5 | 2.19 ± 0.03 |
+
+#### JSON (roundtrip)
+
+| Command                    |   Mean [ms] | Min [ms] | Max [ms] |     Relative |
+| :------------------------- | ----------: | -------: | -------: | -----------: |
+| `./json-roundtrip-spectre` |  71.7 ± 0.4 |     70.7 |     72.2 |         1.00 |
+| `./json-roundtrip-zig`     | 394.0 ± 2.8 |    389.5 |    398.6 |  5.50 ± 0.05 |
+| `./json-roundtrip-d`       | 844.1 ± 3.4 |    838.7 |    849.6 | 11.78 ± 0.08 |
+| `./json-roundtrip-rust`    | 141.7 ± 3.7 |    139.5 |    154.6 |  1.98 ± 0.05 |
+| `./json-roundtrip-cpp`     | 404.7 ± 5.0 |    399.2 |    414.6 |  5.65 ± 0.08 |
+
+#### Sort (u64 radix sort)
+
+| Command          |   Mean [ms] | Min [ms] | Max [ms] |    Relative |
+| :--------------- | ----------: | -------: | -------: | ----------: |
+| `./sort-spectre` |  53.1 ± 0.7 |     51.6 |     54.5 |        1.00 |
+| `./sort-zig`     | 462.7 ± 2.2 |    459.2 |    467.0 | 8.71 ± 0.13 |
+| `./sort-d`       | 359.7 ± 1.5 |    357.7 |    363.9 | 6.77 ± 0.10 |
+| `./sort-rust`    |  76.1 ± 0.5 |     75.2 |     77.3 | 1.43 ± 0.02 |
+| `./sort-cpp`     | 119.1 ± 0.5 |    118.0 |    119.9 | 2.24 ± 0.03 |
+
+#### Hashmap (i64 keys)
+
+| Command             |  Mean [ms] | Min [ms] | Max [ms] |    Relative |
+| :------------------ | ---------: | -------: | -------: | ----------: |
+| `./hashmap-spectre` |  8.3 ± 0.5 |      7.8 |      9.6 |        1.00 |
+| `./hashmap-zig`     | 21.8 ± 0.8 |     20.8 |     23.1 | 2.64 ± 0.18 |
+| `./hashmap-d`       | 48.4 ± 0.6 |     47.0 |     49.1 | 5.86 ± 0.36 |
+| `./hashmap-rust`    | 44.9 ± 0.6 |     43.8 |     45.9 | 5.44 ± 0.33 |
+| `./hashmap-cpp`     | 15.4 ± 0.6 |     14.5 |     16.4 | 1.87 ± 0.14 |
+
+#### Calls
+
+| Command           |  Mean [ms] | Min [ms] | Max [ms] |    Relative |
+| :---------------- | ---------: | -------: | -------: | ----------: |
+| `./calls-spectre` | 17.0 ± 0.7 |     16.0 |     18.2 | 1.26 ± 0.07 |
+| `./calls-zig`     | 13.5 ± 0.5 |     12.7 |     14.3 |        1.00 |
+| `./calls-d`       | 23.6 ± 0.6 |     22.6 |     24.4 | 1.75 ± 0.08 |
+| `./calls-rust`    | 16.3 ± 0.7 |     15.1 |     17.2 | 1.21 ± 0.07 |
+| `./calls-cpp`     | 17.2 ± 0.9 |     16.1 |     19.4 | 1.28 ± 0.09 |
+
+#### Checksum
+
+| Command              |  Mean [ms] | Min [ms] | Max [ms] |    Relative |
+| :------------------- | ---------: | -------: | -------: | ----------: |
+| `./checksum-spectre` | 31.5 ± 8.1 |     28.3 |     60.7 | 1.59 ± 0.41 |
+| `./checksum-zig`     | 29.7 ± 0.6 |     28.7 |     30.3 | 1.50 ± 0.05 |
+| `./checksum-d`       | 29.6 ± 0.5 |     28.7 |     30.3 | 1.50 ± 0.05 |
+| `./checksum-rust`    | 19.8 ± 0.5 |     19.2 |     20.6 |        1.00 |
+| `./checksum-cpp`     | 28.9 ± 0.6 |     28.0 |     29.8 | 1.46 ± 0.05 |

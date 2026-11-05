@@ -1,0 +1,25 @@
+val collections = use("std/collections")
+val stdio       = use("std/stdio")
+val time        = use("std/time")
+
+val KEY_COUNT = 50000
+val OPERATIONS = 5000000
+
+pub fn main() void = trust {
+    val map: ref void = collections.I64Map.new(131072 as usize)
+
+    val start = time.now_ns()
+    for i = 0, i < OPERATIONS, i++ {
+        collections.I64Map.add(map, (i % KEY_COUNT) as i64, 1 as i64)
+    }
+    val elapsed = time.now_ns() - start
+
+    val checksum: mut i64 = 0
+    for i = 0, i < KEY_COUNT, i++ {
+        checksum += collections.I64Map.get_or(map, i as i64, 0 as i64)
+    }
+
+    stdio.print("Spectre: {d} ns\n", {elapsed})
+    stdio.print("Checksum: {d}\n", {checksum})
+    collections.I64Map.free(map)
+}

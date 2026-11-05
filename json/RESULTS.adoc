@@ -16,3 +16,34 @@ Relative speed comparison
         1.00          ./benchmark-spectre
         4.25 ±  0.08  ./benchmark-zig
         9.81 ±  0.20  ./benchmark-d
+== Apple M2 (macOS arm64)
+
+CPU: Apple M2.
+RAM: 16 GB.
+
+Benchmark 1: ./benchmark-spectre
+  Time (mean ± σ):     303.3 ms ±   6.7 ms    [User: 295.3 ms, System: 6.9 ms]
+  Range (min … max):   294.4 ms … 318.4 ms    15 runs
+
+Benchmark 2: ./benchmark-zig
+  Time (mean ± σ):     712.1 ms ±   2.5 ms    [User: 695.1 ms, System: 16.5 ms]
+  Range (min … max):   709.3 ms … 716.9 ms    15 runs
+
+Benchmark 3: ./benchmark-d
+  Time (mean ± σ):      1.710 s ±  0.004 s    [User: 1.701 s, System: 0.009 s]
+  Range (min … max):    1.700 s …  1.716 s    15 runs
+
+Benchmark 4: ./benchmark-rust
+  Time (mean ± σ):     472.5 ms ±   2.5 ms    [User: 468.5 ms, System: 3.3 ms]
+  Range (min … max):   469.1 ms … 478.9 ms    15 runs
+
+Benchmark 5: ./benchmark-cpp
+  Time (mean ± σ):      1.342 s ±  0.006 s    [User: 1.333 s, System: 0.008 s]
+  Range (min … max):    1.333 s …  1.355 s    15 runs
+
+Relative speed comparison
+        1.00          ./benchmark-spectre
+        2.35 ±  0.05  ./benchmark-zig
+        5.64 ±  0.13  ./benchmark-d
+        1.56 ±  0.04  ./benchmark-rust
+        4.42 ±  0.10  ./benchmark-cpp
