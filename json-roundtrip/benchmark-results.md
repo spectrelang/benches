@@ -1,7 +1,7 @@
 | Command | Mean [ms] | Min [ms] | Max [ms] | Relative |
 |:---|---:|---:|---:|---:|
-| `./json-roundtrip-spectre` | 156.8 ± 1.5 | 155.0 | 159.8 | 1.00 |
-| `./json-roundtrip-zig` | 881.6 ± 12.1 | 864.2 | 914.2 | 5.62 ± 0.09 |
-| `./json-roundtrip-d` | 981.3 ± 11.4 | 971.5 | 1013.9 | 6.26 ± 0.09 |
-| `./json-roundtrip-rust` | 168.9 ± 5.3 | 162.6 | 174.5 | 1.08 ± 0.04 |
-| `./json-roundtrip-cpp` | 587.3 ± 3.8 | 582.5 | 593.3 | 3.75 ± 0.04 |
+| `./json-roundtrip-spectre` | 156.4 ± 2.0 | 154.4 | 160.7 | 1.00 |
+| `./json-roundtrip-zig` | 879.5 ± 11.1 | 865.1 | 902.7 | 5.62 ± 0.10 |
+| `./json-roundtrip-d` | 986.7 ± 13.4 | 974.1 | 1016.9 | 6.31 ± 0.12 |
+| `./json-roundtrip-rust` | 170.1 ± 6.5 | 162.7 | 180.5 | 1.09 ± 0.04 |
+| `./json-roundtrip-cpp` | 589.1 ± 4.9 | 582.7 | 601.9 | 3.77 ± 0.06 |

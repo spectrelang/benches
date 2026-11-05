@@ -47,3 +47,12 @@ core-zig
 core-spectre
 core-rust
 core-cpp
+core-vector-d
+core-vector-zig
+core-vector-spectre
+core-vector-rust
+core-vector-cpp
+
+# Python cache
+__pycache__/
+*.pyc
