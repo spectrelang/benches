@@ -42,3 +42,8 @@ json-roundtrip-zig
 json-roundtrip-spectre
 json-roundtrip-rust
 json-roundtrip-cpp
+core-d
+core-zig
+core-spectre
+core-rust
+core-cpp

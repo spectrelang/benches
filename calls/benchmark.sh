@@ -2,10 +2,10 @@
 set -euo pipefail
 
 # Zig: v0.17.0
-# LDC2: v1.41.0
-# Rust: v1.94.0
-# Clang++: Apple clang 16
-# Spectre: canary build (see ../spectre)
+# LDC2: v1.36.0
+# Rust: v1.93.1
+# Clang++: v18.1.3
+# Spectre: v0.0.14
 
 if [[ -z "${SPECTRE:-}" ]]; then
 	if [[ -x "../../spectre/spectre-dev" ]]; then

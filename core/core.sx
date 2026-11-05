@@ -1,0 +1,58 @@
+val stdio = use("std/stdio")
+val time  = use("std/time")
+
+val MIX_ITERATIONS = 40000000
+val COLLATZ_LIMIT = 1000000
+val FIB_N = 35
+
+fn mix(x: u64) u64 = {
+    val y: mut u64 = x
+    y = (y ^ (y >> 30)) * 0xbf58476d1ce4e5b9
+    y = (y ^ (y >> 27)) * 0x94d049bb133111eb
+    return y ^ (y >> 31)
+}
+
+fn collatz(n0: u64) u64 = {
+    val n: mut u64 = n0
+    val steps: mut u64 = 0
+    for {
+        if n == 1 {
+            break
+        }
+        if n & 1 == 0 {
+            n = n >> 1
+        } else {
+            n = n * 3 + 1
+        }
+        steps += 1
+    }
+    return steps
+}
+
+fn fib(n: u64) u64 = {
+    if n < 2 {
+        return n
+    }
+    return fib(n - 1) + fib(n - 2)
+}
+
+pub fn main() void = trust {
+    val start = time.now_ns()
+    val checksum: mut u64 = 0x123456789abcdef as u64
+
+    for i = 0, i < MIX_ITERATIONS, i++ {
+        checksum = mix(checksum + (i as u64))
+    }
+
+    for n = 1, n < COLLATZ_LIMIT, n++ {
+        checksum += collatz(n as u64)
+    }
+
+    checksum += fib(FIB_N as u64)
+
+    val elapsed = time.now_ns() - start
+
+    stdio.print("Spectre: {d} ns\n", {elapsed})
+    stdio.print("Spectre: {d} ns/op\n", {elapsed / (MIX_ITERATIONS + COLLATZ_LIMIT)})
+    stdio.print("Checksum: {d}\n", {checksum})
+}
