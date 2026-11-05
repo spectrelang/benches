@@ -15,7 +15,7 @@ if [[ -z "${SPECTRE:-}" ]]; then
 	fi
 fi
 
-"$SPECTRE" sort.sx -release -o sort-spectre --alt
+"$SPECTRE" sort.sx -release -o sort-spectre -alt
 zig build-exe sort.zig -OReleaseFast -femit-bin=sort-zig
 ldc2 -O3 -release -boundscheck=off sort.d -of=sort-d
 rustc -O sort.rs -o sort-rust
