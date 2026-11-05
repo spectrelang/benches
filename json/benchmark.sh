@@ -23,7 +23,7 @@ for dir in ../vendor /opt/homebrew/include /usr/local/include /usr/include; do
 	fi
 done
 
-"$SPECTRE" sample194.sx --release -o benchmark-spectre
+"$SPECTRE" sample194.sx -release -alt -native -o benchmark-spectre
 zig build-exe sample194.zig -OReleaseFast -femit-bin=benchmark-zig
 ldc2 -O3 -release -boundscheck=off sample194.d -of=benchmark-d
 cargo build --release

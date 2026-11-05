@@ -15,7 +15,7 @@ if [[ -z "${SPECTRE:-}" ]]; then
 	fi
 fi
 
-"$SPECTRE" checksum.sx --release -o checksum-spectre --alt
+"$SPECTRE" checksum.sx -release -o checksum-spectre -alt
 zig build-exe checksum.zig -OReleaseFast -femit-bin=checksum-zig
 ldc2 -O3 -release -boundscheck=off checksum.d -of=checksum-d
 rustc -O checksum.rs -o checksum-rust

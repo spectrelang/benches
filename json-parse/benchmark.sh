@@ -23,7 +23,7 @@ for dir in ../vendor /opt/homebrew/include /usr/local/include /usr/include; do
 	fi
 done
 
-"$SPECTRE" parse.sx --release -o json-parse-spectre --alt
+"$SPECTRE" parse.sx -release -o json-parse-spectre -alt
 zig build-exe parse.zig -OReleaseFast -femit-bin=json-parse-zig
 ldc2 -O3 -release -boundscheck=off parse.d -of=json-parse-d
 cargo build --release

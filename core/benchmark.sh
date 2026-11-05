@@ -16,7 +16,7 @@ if [[ -z "${SPECTRE:-}" ]]; then
 fi
 
 # Spectre: fallback backend with the strongest optimization flags.
-"$SPECTRE" core.sx --release --alt --native --unroll -o core-spectre
+"$SPECTRE" core.sx -release -alt -native -unroll -o core-spectre
 zig build-exe core.zig -OReleaseFast -mcpu=native -femit-bin=core-zig
 ldc2 -O3 -release -boundscheck=off -mcpu=native core_bench.d -of=core-d
 rustc -C opt-level=3 -C target-cpu=native -C codegen-units=1 -C lto=fat -C panic=abort core.rs -o core-rust

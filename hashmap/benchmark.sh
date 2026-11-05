@@ -15,7 +15,7 @@ if [[ -z "${SPECTRE:-}" ]]; then
 	fi
 fi
 
-"$SPECTRE" hashmap.sx --release -o hashmap-spectre --alt
+"$SPECTRE" hashmap.sx -release -o hashmap-spectre -alt
 zig build-exe hashmap.zig -OReleaseFast -femit-bin=hashmap-zig
 ldc2 -O3 -release -boundscheck=off hashmap.d -of=hashmap-d
 rustc -O hashmap.rs -o hashmap-rust

@@ -23,7 +23,7 @@ for dir in ../vendor /opt/homebrew/include /usr/local/include /usr/include; do
 	fi
 done
 
-"$SPECTRE" roundtrip.sx --release -o json-roundtrip-spectre --alt
+"$SPECTRE" roundtrip.sx -release -o json-roundtrip-spectre -alt
 zig build-exe roundtrip.zig -OReleaseFast -femit-bin=json-roundtrip-zig
 ldc2 -O3 -release -boundscheck=off roundtrip.d -of=json-roundtrip-d
 cargo build --release

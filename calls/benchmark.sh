@@ -15,7 +15,7 @@ if [[ -z "${SPECTRE:-}" ]]; then
 	fi
 fi
 
-"$SPECTRE" calls.sx --release -o calls-spectre --alt
+"$SPECTRE" calls.sx -release -o calls-spectre -alt
 zig build-exe calls.zig -OReleaseFast -femit-bin=calls-zig
 ldc2 -O3 -release -boundscheck=off calls.d -of=calls-d
 rustc -O calls.rs -o calls-rust

@@ -23,7 +23,7 @@ for dir in ../vendor /opt/homebrew/include /usr/local/include /usr/include; do
 	fi
 done
 
-"$SPECTRE" write.sx --release -o json-write-spectre --alt
+"$SPECTRE" write.sx -release -o json-write-spectre -alt
 zig build-exe write.zig -OReleaseFast -femit-bin=json-write-zig
 ldc2 -O3 -release -boundscheck=off write.d -of=json-write-d
 cargo build --release
