@@ -1,0 +1,19 @@
+val ROUNDS: i64 = 4000000
+
+fn fib(n: i64) i64 = pure {
+    if n < 2 {
+        return n
+    }
+    return fib(n - 1) + fib(n - 2)
+}
+
+val FIB: i64 = @static(fib(24))
+
+pub fn main() i32 = {
+    val acc: mut u64 = 0
+    for i = 0, i < ROUNDS, i++ {
+        acc = (acc * 1099511628211 + FIB as u64) ^ (acc >> 7)
+    }
+    trust @print("{d}\n", {(acc & 0x7fffffff) as i64})
+    return 0
+}
