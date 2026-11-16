@@ -1,0 +1,36 @@
+val SIZE: i64 = 4096
+val PASSES: i64 = 1024
+
+val TABLE: mut [4096]u64 = @zeroed
+
+fn cell(i: u64) u64 = {
+    val x: mut u64 = i * 0x9e3779b97f4a7c15 + 1
+    for j = 0, j < 128, j++ {
+        x = x ^ (x >> 12)
+        x = x ^ (x << 25)
+        x = x ^ (x >> 27)
+        x = x * 2685821657736338717
+    }
+    return x
+}
+
+fn fill_table() void = {
+    for i = 0, i < SIZE, i++ {
+        @set(TABLE, i as usize, cell(i as u64))
+    }
+}
+
+pub fn main() i32 = {
+    fill_table()
+    val h: mut u64 = 14695981039346656037
+    for p = 0, p < PASSES, p++ {
+        for i = 0, i < SIZE, i++ {
+            val v = @get(TABLE, i as usize)
+            if v is some x {
+                h = (h ^ x) * 1099511628211
+            }
+        }
+    }
+    trust @print("{d}\n", {(h & 0x7fffffff) as i64})
+    return 0
+}
