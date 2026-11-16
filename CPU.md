@@ -1,6 +1,6 @@
 # Spectre CPU Benchmarks
 
-These benchmarks compare Spectre's (v0.0.17) _implicit_ compile-time folding
+These benchmarks compare Spectre's (v0.0.17) implicit compile-time folding
 against equivalent C, C++, Zig and Goose programs.
 
 Unlike the CTE benchmarks, no program asks the compiler to evaluate anything.
@@ -27,7 +27,7 @@ checksum; the checksums were verified across all five languages before timing.
 
 ## Results
 
-Mean wall-clock times. Lower is better. “vs Spectre” is the speedup of Spectre
+Mean wall-clock times. Lower is better. "vs Spectre" is the speedup of Spectre
 over that implementation; values below 1.00× mean Spectre is slower.
 
 | Benchmark        |     Spectre |                   C |              C++ |             Zig |            Goose |
