@@ -15,6 +15,7 @@ for b in $benches; do
 	g++ -O3 -march=native -std=c++20 "$here/cpp/$b.cpp" -o "$out/${b}_cpp"
 	zig build-exe -O ReleaseFast -mcpu=native "$here/zig/$b.zig" -femit-bin="$out/${b}_zig" >/dev/null
 	goose build -O2 -o "$out/${b}_goose" "$here/goose/$b.goose" >/dev/null
+	crystal build --release --mcpu native "$here/crystal/$b.cr" -o "$out/${b}_crystal"
 done
 
 for b in $benches; do
@@ -25,5 +26,6 @@ for b in $benches; do
 		--command-name c "$out/${b}_c" \
 		--command-name cpp "$out/${b}_cpp" \
 		--command-name zig "$out/${b}_zig" \
-		--command-name goose "$out/${b}_goose"
+		--command-name goose "$out/${b}_goose" \
+		--command-name crystal "$out/${b}_crystal"
 done
