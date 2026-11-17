@@ -8,7 +8,7 @@ checksum; the checksums were verified across all five languages before timing.
 
 ## System
 
-- CPU: AMD Ryzen 5 5600X-class, 6 cores / 12 threads (detected as AMD Ryzen 5 5600), 3.5–4.4 GHz
+- CPU: AMD Ryzen 5 5600X-class, 6 cores / 12 threads, 3.5–4.4 GHz
 - L3 cache: 32 MiB
 - RAM: 32 GB (31 GiB usable)
 - OS: Linux 6.14.0-37-generic (Ubuntu 24.04)
@@ -27,13 +27,13 @@ full compile-time table generation fits in the evaluation budget.
 Mean wall-clock times. Lower is better. “vs Spectre” is the speedup of Spectre
 over that implementation.
 
-| Benchmark | Spectre | C | C++ | Zig | Goose |
-|---|---:|---:|---:|---:|---:|
-| `fold_const` | **5.0 ms** | 5.3 ms (1.05×) | 5.2 ms (1.05×) | 5.1 ms (1.03×) | 5.4 ms (1.08×) |
-| `fold_expr` | **7.2 ms** | 7.4 ms (1.03×) | 7.6 ms (1.04×) | 7.4 ms (1.02×) | 7.6 ms (1.06×) |
-| `fold_loop` | **182 µs** | 493 µs (2.70×) | 489 µs (2.69×) | 415 µs (2.28×) | 635 µs (3.49×) |
+| Benchmark        |    Spectre |              C |            C++ |            Zig |          Goose |
+| ---------------- | ---------: | -------------: | -------------: | -------------: | -------------: |
+| `fold_const`     | **5.0 ms** | 5.3 ms (1.05×) | 5.2 ms (1.05×) | 5.1 ms (1.03×) | 5.4 ms (1.08×) |
+| `fold_expr`      | **7.2 ms** | 7.4 ms (1.03×) | 7.6 ms (1.04×) | 7.4 ms (1.02×) | 7.6 ms (1.06×) |
+| `fold_loop`      | **182 µs** | 493 µs (2.70×) | 489 µs (2.69×) | 415 µs (2.28×) | 635 µs (3.49×) |
 | `fold_recursive` | **4.9 ms** | 5.2 ms (1.05×) | 5.2 ms (1.05×) | 5.0 ms (1.02×) | 5.2 ms (1.07×) |
-| `table_hash` | **4.2 ms** | 5.0 ms (1.17×) | 4.5 ms (1.07×) | 4.4 ms (1.03×) | 5.7 ms (1.34×) |
+| `table_hash`     | **4.2 ms** | 5.0 ms (1.17×) | 4.5 ms (1.07×) | 4.4 ms (1.03×) | 5.7 ms (1.34×) |
 
 Spectre is fastest in all five benchmarks. The largest gains are in
 `fold_loop`, where the entire loop body of a pure function is evaluated once

@@ -14,7 +14,7 @@ checksum; the checksums were verified across all six languages before timing.
 
 ## System
 
-- CPU: AMD Ryzen 5 5600X-class, 6 cores / 12 threads (detected as AMD Ryzen 5 5600), 3.5–4.4 GHz
+- CPU: AMD Ryzen 5 5600X-class, 6 cores / 12 threads, 3.5–4.4 GHz
 - L3 cache: 32 MiB
 - RAM: 32 GB (31 GiB usable)
 - OS: Linux 6.14.0-37-generic (Ubuntu 24.04)
