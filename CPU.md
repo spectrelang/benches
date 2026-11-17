@@ -18,7 +18,7 @@ checksum; the checksums were verified across all six languages before timing.
 - L3 cache: 32 MiB
 - RAM: 32 GB (31 GiB usable)
 - OS: Linux 6.14.0-37-generic (Ubuntu 24.04)
-- Spectre: self-hosted `spectre-dev`, UQBE backend, `-release -native`
+- Spectre: 0.0.17 (e373d1f), UQBE backend, `-release -native`
 - C: GCC 13.3.0, `-O3 -march=native`
 - C++: GCC 13.3.0, `-O3 -march=native -std=c++20`
 - Zig: 0.17.0, `ReleaseFast`, `-mcpu=native`
